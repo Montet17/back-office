@@ -1,0 +1,43 @@
+<h1>Policy List</h1>
+<table>
+  <tr>
+    <th>
+      id
+    </th>
+    <th>
+      Car
+    </th>
+    <th>
+      Driver
+    </th>
+    <th>
+      Start date
+    </th>
+    <th>
+      End date
+    </th>
+    <th>
+      Status
+    </th>
+  </tr>
+  <tr *ngFor="let enquiry of enquiries" [ngClass]="{'purchased':enquiry.status==2,'refused':enquiry.status==3}">
+    <td>
+      <span>{{enquiry.id}}</span>
+    </td>
+    <td>
+      <span>{{enquiry.car}}</span>
+    </td>
+    <td>
+      <span>{{enquiry.driver}}</span>
+    </td>
+    <td>
+      <span>{{enquiry.startDate}}</span>
+    </td>
+    <td>
+      <span>{{enquiry.endDate}}</span>
+    </td>
+    <td>
+      <span>{{enquiry.status}}</span>
+    </td>
+  </tr>
+</table>

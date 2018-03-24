@@ -1,0 +1,46 @@
+<h1>Create Policy</h1>
+
+<form [formGroup]="enquiryForm">  (ngSubmit)="enquiryFormSubmit()"
+  <div class="form-group">
+    <label class="center-block">Id:
+      <input class="form-control" formControlName="id" type="number">
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="center-block">Car:
+      <input class="form-control" formControlName="car">
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="center-block">Driver:
+      <input class="form-control" formControlName="driver">
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="center-block">Driver DOB:
+      <input class="form-control" formControlName="driverDOB" type="date">
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="center-block">Start Date:
+      <input class="form-control" formControlName="startDate" type="date">
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="center-block">End Date:
+      <input class="form-control" formControlName="endDate" type="date">
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="center-block">Status:
+      <input class="form-control" formControlName="status"type="number">
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="center-block">Price:
+      <input class="form-control" formControlName="price" type="number">
+    </label>
+  </div>
+</form>
+
+<p>Form value: {{ enquiryForm.value | json }}</p>
