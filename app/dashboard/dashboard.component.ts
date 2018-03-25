@@ -18,21 +18,21 @@ export class DashboardComponent implements OnInit {
   uptake: number;
   salesTotal: number = 0;
   refusalCount: number;
-  enquiries : Enquiry[] = []; 
-  
-  ngOnInit() {            
-        
-    this.enquiryService.getEnquiries().subscribe(n=> {
-    this.enquiries = n;      
-    let sales =this.enquiries.filter(e => e.status == EnquiryStatusEnum.purchase);
-    this.policiesPurchased = sales.length;
-    this.enquiryCount = this.enquiries.length;
-   this.uptake = this.policiesPurchased / this.enquiryCount;
-    for (let enquiry of sales) {  
-      this.salesTotal += enquiry.price;
-    }
-    this.refusalCount = this.enquiries.filter(e => e.status == EnquiryStatusEnum.refusal).length;        
-    },e=>console.log("error"),
-      ()=>console.log("complete"));   
+  enquiries: Enquiry[] = [];
+
+  ngOnInit() {
+
+    this.enquiryService.getEnquiries().subscribe(n => {
+      this.enquiries = n;
+      let sales = this.enquiries.filter(e => e.status == EnquiryStatusEnum.purchase);
+      this.policiesPurchased = sales.length;
+      this.enquiryCount = this.enquiries.length;
+      this.uptake = this.policiesPurchased / this.enquiryCount;
+      for (let enquiry of sales) {
+        this.salesTotal += enquiry.price;
+      }
+      this.refusalCount = this.enquiries.filter(e => e.status == EnquiryStatusEnum.refusal).length;
+    }, e => console.log("error"),
+      () => console.log("complete"));
   }
 }

@@ -1,6 +1,6 @@
 <h1>Create Policy</h1>
 
-<form [formGroup]="enquiryForm">  (ngSubmit)="enquiryFormSubmit()"
+<form [formGroup]="enquiryForm" (ngSubmit)="enquiryFormSubmit()">
   <div class="form-group">
     <label class="center-block">Id:
       <input class="form-control" formControlName="id" type="number">
@@ -41,6 +41,7 @@
       <input class="form-control" formControlName="price" type="number">
     </label>
   </div>
+  <input type="submit" value="Submit"/>
 </form>
 
 <p>Form value: {{ enquiryForm.value | json }}</p>

@@ -16,4 +16,8 @@ export class EnquiryService {
   getEnquiries():Observable<Enquiry[]> {
     return this.httpClient.get<Enquiry[]>(apiUrl);    
   }
+
+  createEnquiry(enquiry:Enquiry){    
+    return this.httpClient.post(apiUrl,enquiry);  
+  }
 }
