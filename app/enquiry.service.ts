@@ -17,7 +17,7 @@ export class EnquiryService {
     return this.httpClient.get<Enquiry[]>(apiUrl);    
   }
 
-  createEnquiry(enquiry:Enquiry){    
+  createEnquiry(enquiry:string){    
     return this.httpClient.post(apiUrl,enquiry);  
   }
 }

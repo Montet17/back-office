@@ -11,15 +11,17 @@
       <input class="form-control" formControlName="car">
     </label>
   </div>
-  <div class="form-group">
-    <label class="center-block">Driver:
-      <input class="form-control" formControlName="driver">
-    </label>
-  </div>
-  <div class="form-group">
-    <label class="center-block">Driver DOB:
-      <input class="form-control" formControlName="driverDOB" type="date">
-    </label>
+  <div formGroupName="driver">
+    <div class="form-group">
+      <label class="center-block">Driver:
+        <input class="form-control" formControlName="name">
+      </label>
+    </div>
+    <div class="form-group">
+      <label class="center-block">Driver DOB:
+        <input class="form-control" formControlName="dob" type="date">
+      </label>
+    </div>
   </div>
   <div class="form-group">
     <label class="center-block">Start Date:
@@ -33,7 +35,7 @@
   </div>
   <div class="form-group">
     <label class="center-block">Status:
-      <input class="form-control" formControlName="status"type="number">
+      <input class="form-control" formControlName="status" type="number">
     </label>
   </div>
   <div class="form-group">
@@ -41,7 +43,7 @@
       <input class="form-control" formControlName="price" type="number">
     </label>
   </div>
-  <input type="submit" value="Submit"/>
+  <input type="submit" value="Submit" />
 </form>
 
 <p>Form value: {{ enquiryForm.value | json }}</p>
