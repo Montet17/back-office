@@ -1,5 +1,5 @@
 <h1>Create Policy</h1>
-
+<button (click)="addDriver()" type="button">Add a Secret Lair</button>
 <form [formGroup]="enquiryForm" (ngSubmit)="enquiryFormSubmit()">
   <div class="form-group">
     <label class="center-block">Id:
@@ -11,16 +11,19 @@
       <input class="form-control" formControlName="car">
     </label>
   </div>
-  <div formGroupName="driver">
-    <div class="form-group">
-      <label class="center-block">Driver:
-        <input class="form-control" formControlName="name">
-      </label>
-    </div>
-    <div class="form-group">
-      <label class="center-block">Driver DOB:
-        <input class="form-control" formControlName="dob" type="date">
-      </label>
+  <div formArrayName="drivers">
+    <div *ngFor="let driver of drivers.controls; let i=index" [formGroupName]="i">
+      <div class="form-group">
+        <label class="center-block">Name
+          <input class="form-control" formControlName="name" type="text">
+        </label>
+      </div>
+      <div class="form-group">
+          <label class="center-block">DOB
+            <input class="form-control" formControlName="dob" type="date">
+            <!-- https://alligator.io/angular/reactive-forms-formarray-dynamic-fields/ -->
+          </label>
+        </div>
     </div>
   </div>
   <div class="form-group">

@@ -3,7 +3,7 @@ import { EnquiryService } from '../enquiry.service';
 import { Enquiry } from '../enquiry';
 import { Driver } from '../driver';
 import { EnquiryStatusEnum } from '../enquiry-status-enum';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators,FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-retail-policy-create',
@@ -13,7 +13,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 export class RetailPolicyCreateComponent implements OnInit {
 
   enquiryForm: FormGroup;
-  enquiry: Enquiry;
+  enquiry: Enquiry;  
 
   constructor(private enquiryService: EnquiryService, private fb: FormBuilder) {
     this.createForm();
@@ -22,15 +22,35 @@ export class RetailPolicyCreateComponent implements OnInit {
     this.enquiryForm = this.fb.group({
       id: ['', Validators.required],
       car: ['', Validators.required],
-      driver: this.fb.group({
-        name:["",Validators.required],
-        dob:["",Validators.required]
-      }),      
+      drivers:this.fb.array([ this.createDriverFormGroup() ]),      
       startDate: [Validators.required],
       endDate: [Validators.required],
       status: [2, Validators.required],
       price: [, Validators.required],
     });
+    // this.setDrivers(this.enquiry.drivers);
+  }
+
+  addDriver() {
+    this.drivers.push(this.createDriverFormGroup());
+  }
+
+  createDriverFormGroup(): FormGroup {
+    return this.fb.group({
+      name: '',
+     dob:Date
+    });
+  }
+  get drivers(): FormArray {    
+    return this.enquiryForm.get('drivers') as FormArray;
+  };
+
+  setDrivers(drivers: Driver[]) {
+    const driversFGs = this.enquiry.drivers.map(d => this.fb.group(drivers));
+    console.log(driversFGs);
+    const driversFormArray = this.fb.array(driversFGs);
+    console.log(driversFormArray);
+    // this.enquiryForm.setControl('drivers', driversFormArray);
   }
 
   enquiryFormSubmit() {

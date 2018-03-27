@@ -11,5 +11,5 @@ export class Enquiry {
   endDate: Date;
   status: number;
   price: number;
-  driver:Driver;
+  drivers:Driver[];
 }
