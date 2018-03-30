@@ -20,7 +20,7 @@
       Status
     </th>
   </tr>
-  <tr *ngFor="let enquiry of enquiries" [ngClass]="{'purchased':enquiry.status==2,'refused':enquiry.status==3}">
+  <tr *ngFor="let enquiry of enquiries" class="enquiryRow" [ngClass]="{'purchased':enquiry.status==2,'refused':enquiry.status==3}" (click)="getEnquiryDetails(enquiry.id)" >
     <td>
       <span>{{enquiry.id}}</span>
     </td>
@@ -28,7 +28,9 @@
       <span>{{enquiry.car}}</span>
     </td>
     <td>
-      <span>{{enquiry.driver}}</span>
+      <span *ngFor="let driver of enquiry.drivers">
+          {{driver.name}}
+      </span>
     </td>
     <td>
       <span>{{enquiry.startDate}}</span>
@@ -41,3 +43,4 @@
     </td>
   </tr>
 </table>
+<app-enquiry-details [enquiry]="selectedEnquiry"></app-enquiry-details>

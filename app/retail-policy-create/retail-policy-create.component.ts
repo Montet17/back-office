@@ -3,7 +3,8 @@ import { EnquiryService } from '../enquiry.service';
 import { Enquiry } from '../enquiry';
 import { Driver } from '../driver';
 import { EnquiryStatusEnum } from '../enquiry-status-enum';
-import { FormControl, FormGroup, FormBuilder, Validators,FormArray } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { ValidatePrice } from '../price-validator';
 
 @Component({
   selector: 'app-retail-policy-create',
@@ -13,23 +14,38 @@ import { FormControl, FormGroup, FormBuilder, Validators,FormArray } from '@angu
 export class RetailPolicyCreateComponent implements OnInit {
 
   enquiryForm: FormGroup;
-  enquiry: Enquiry;  
+  enquiry: Enquiry;
+  private formSubmitAttempt: boolean;
 
   constructor(private enquiryService: EnquiryService, private fb: FormBuilder) {
     this.createForm();
   }
+
+  ngOnInit() {
+  }
+
+
   createForm() {
     this.enquiryForm = this.fb.group({
-      id: ['', Validators.required],
       car: ['', Validators.required],
-      drivers:this.fb.array([ this.createDriverFormGroup() ]),      
+      drivers: this.fb.array([this.createDriverFormGroup()]),
       startDate: [Validators.required],
       endDate: [Validators.required],
       status: [2, Validators.required],
-      price: [, Validators.required],
+      price: [, [Validators.required, ValidatePrice]],
+      
     });
-    // this.setDrivers(this.enquiry.drivers);
+    this.formSubmitAttempt = false;
+    // this.setDrivers(this.enquiry.drivers); //load drivers from the server
   }
+
+  // setDrivers(drivers: Driver[]) {
+  //   const driversFGs = this.enquiry.drivers.map(d => this.fb.group(drivers));
+  //   console.log(driversFGs);
+  //   const driversFormArray = this.fb.array(driversFGs);
+  //   console.log(driversFormArray);
+  //   // this.enquiryForm.setControl('drivers', driversFormArray);
+  // }
 
   addDriver() {
     this.drivers.push(this.createDriverFormGroup());
@@ -38,51 +54,51 @@ export class RetailPolicyCreateComponent implements OnInit {
   createDriverFormGroup(): FormGroup {
     return this.fb.group({
       name: '',
-     dob:Date
+      dob: Date
     });
   }
-  get drivers(): FormArray {    
+  get drivers(): FormArray {
     return this.enquiryForm.get('drivers') as FormArray;
   };
 
-  setDrivers(drivers: Driver[]) {
-    const driversFGs = this.enquiry.drivers.map(d => this.fb.group(drivers));
-    console.log(driversFGs);
-    const driversFormArray = this.fb.array(driversFGs);
-    console.log(driversFormArray);
-    // this.enquiryForm.setControl('drivers', driversFormArray);
+  isFieldValid(field: string) {
+    return (!this.enquiryForm.get(field).valid && this.enquiryForm.get(field).touched) ||
+      (this.enquiryForm.get(field).untouched && this.formSubmitAttempt);
   }
 
-  enquiryFormSubmit() {
+  validateAllFormFields(formArray: FormArray) {
+    Object.keys(formArray.controls).forEach(formGroup => {
+      const group = formArray.get(formGroup);
+      if (group instanceof FormGroup) {
 
-    Object.keys(this.enquiryForm.controls).forEach(field => { // {1}
-      const control = this.enquiryForm.get(field);            // {2}
-      control.markAsTouched({ onlySelf: true });       // {3}
+        Object.keys(group.controls).forEach(formField => {
+          const field = group.get(formField);
+          console.log(field);//
+
+        });
+      }
     });
+  }
+
+  isNestedFieldValid(field: string) {
+    console.log(field);
+  }
+
+
+
+  enquiryFormSubmit() {
+    this.formSubmitAttempt = true;
     if (!this.enquiryForm.valid) {
-      console.log('the form is not valid');
-      return ;
+      console.log("forminvalid");
+      return;
     }
 
-     const formModel = this.enquiryForm.value;
-    // this.enquiry = new Enquiry();
-    // this.enquiry.id = formModel.id as number;
-    // this.enquiry.car = formModel.car;
-    // this.enquiry.driver = formModel.driver;
-    // this.enquiry.driverDOB = formModel.driverDOB as Date;
-    // this.enquiry.startDate = formModel.startDate as Date;
-    // this.enquiry.endDate = formModel.endDate as Date;
-    // this.enquiry.status = formModel.status as number;
-    // this.enquiry.price = formModel.price as number;
-    //as long as data model matches form model post will work alone
+    const formModel = this.enquiryForm.value;
 
     this.enquiryService.createEnquiry(formModel).subscribe(n => {
       console.log("Next");
-    }, 
-    e => console.log("error"), 
-    () =>this.createForm());
+    },
+      e => console.log("error"),
+      () => this.createForm());//complete
   }
-  ngOnInit() {
-  }
-
 }

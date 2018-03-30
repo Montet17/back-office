@@ -5,3 +5,9 @@
 .refused {
   background-color: #ba4b30;
 }
+
+
+.enquiryRow:hover {
+cursor: pointer;
+background-color :#d1d1e0!important;
+}

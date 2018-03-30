@@ -1,0 +1,18 @@
+<div *ngIf="enquiry!=null">
+    <div class="enquiryBox">
+        <h2>Enquiry Details</h2>
+        <div>
+            <label><h4>Enquiry Reference</h4></label>
+            <span>{{enquiry.shortPolicyReference}}</span>
+        </div>
+        <div>
+            <label><h4>Enquiry Price</h4></label>
+            <span>{{enquiry.price}}</span>
+        </div>
+        <div>
+            <label><h4>Enquiry Car</h4></label>
+            <span>{{enquiry.car}}</span>
+        </div>        
+    </div>
+    <input type="button" value="Close Enquiry" (click)="clearEnquiry();"/>
+</div>

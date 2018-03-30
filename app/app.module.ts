@@ -10,13 +10,17 @@ import { RetailPolicyCreateComponent } from './retail-policy-create/retail-polic
 import { DateOfBirthPickerModule } from './date-of-birth-picker/date-of-birth-picker.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FieldErrorDisplayComponent } from './field-error-display/field-error-display.component';
+import { EnquiryDetailsComponent } from './enquiry-details/enquiry-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     RetailSupportPolicyListComponent,
-    RetailPolicyCreateComponent
+    RetailPolicyCreateComponent,
+    FieldErrorDisplayComponent,
+    EnquiryDetailsComponent
   ],
   imports: [
     BrowserModule,

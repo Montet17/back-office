@@ -13,11 +13,16 @@ export class EnquiryService {
  
   constructor(private httpClient:HttpClient) { }
 
+  getEnquiry(id:number):Observable<Enquiry> {
+    console.log(id);
+    return this.httpClient.get<Enquiry>(apiUrl+"/findenquiry/"+id);
+  }
+
   getEnquiries():Observable<Enquiry[]> {
-    return this.httpClient.get<Enquiry[]>(apiUrl);    
+    return this.httpClient.get<Enquiry[]>(apiUrl+"/get");    
   }
 
   createEnquiry(enquiry:string){    
-    return this.httpClient.post(apiUrl,enquiry);  
+    return this.httpClient.post(apiUrl+"/post",enquiry);  
   }
 }

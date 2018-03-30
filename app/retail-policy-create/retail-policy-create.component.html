@@ -1,52 +1,67 @@
 <h1>Create Policy</h1>
-<button (click)="addDriver()" type="button">Add a Secret Lair</button>
 <form [formGroup]="enquiryForm" (ngSubmit)="enquiryFormSubmit()">
-  <div class="form-group">
+  <!-- <div class="form-group">
     <label class="center-block">Id:
       <input class="form-control" formControlName="id" type="number">
     </label>
-  </div>
+    <app-field-error-display [displayError]="isFieldValid('id')"   errorMsg="Please enter an id"></app-field-error-display>
+  </div> -->
   <div class="form-group">
     <label class="center-block">Car:
       <input class="form-control" formControlName="car">
     </label>
+    <app-field-error-display [displayError]="isFieldValid('car')" errorMsg="Please enter a car"></app-field-error-display>
   </div>
   <div formArrayName="drivers">
+    <h3>Drivers</h3>
     <div *ngFor="let driver of drivers.controls; let i=index" [formGroupName]="i">
-      <div class="form-group">
-        <label class="center-block">Name
-          <input class="form-control" formControlName="name" type="text">
-        </label>
-      </div>
-      <div class="form-group">
+      <div class="driverGroupStyle">
+        <h4>Driver {{i+1}}</h4>
+        <div class="form-group">
+          <label class="center-block">Name
+            <input class="form-control" formControlName="name" type="text">
+          </label>
+          <!-- <app-field-error-display [displayError]="isNestedFieldValid(i)"   errorMsg="Please inform of this drivers name"></app-field-error-display>         -->
+        </div>
+        <div class="form-group">
           <label class="center-block">DOB
             <input class="form-control" formControlName="dob" type="date">
             <!-- https://alligator.io/angular/reactive-forms-formarray-dynamic-fields/ -->
           </label>
         </div>
+      </div>
     </div>
   </div>
   <div class="form-group">
     <label class="center-block">Start Date:
       <input class="form-control" formControlName="startDate" type="date">
     </label>
+    <app-field-error-display [displayError]="isFieldValid('startDate')" errorMsg="Please enter a start date"></app-field-error-display>
   </div>
   <div class="form-group">
     <label class="center-block">End Date:
       <input class="form-control" formControlName="endDate" type="date">
     </label>
+    <app-field-error-display [displayError]="isFieldValid('endDate')" errorMsg="Please enter an end date"></app-field-error-display>
   </div>
   <div class="form-group">
     <label class="center-block">Status:
       <input class="form-control" formControlName="status" type="number">
     </label>
+    <app-field-error-display [displayError]="isFieldValid('status')" errorMsg="Please enter an enquiry status"></app-field-error-display>
   </div>
   <div class="form-group">
     <label class="center-block">Price:
       <input class="form-control" formControlName="price" type="number">
     </label>
+    <div *ngIf="enquiryForm.get('price').errors && enquiryForm.get('price').errors.invalidPrice">
+      Price Invalid
+    </div>
+    <!-- <app-field-error-display [displayError]="isFieldValid('price')" errorMsg="Please enter a price"></app-field-error-display> -->
+    <!-- myForm.get('websiteUrl').errors.validUrl -->
+    <!-- <app-field-error-display [displayError]="isFieldValid('price')" errorMsg="Please enter a price"></app-field-error-display> -->
   </div>
   <input type="submit" value="Submit" />
 </form>
-
+<button (click)="addDriver()" type="button">Add another driver</button>
 <p>Form value: {{ enquiryForm.value | json }}</p>

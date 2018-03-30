@@ -12,4 +12,5 @@ export class Enquiry {
   status: number;
   price: number;
   drivers:Driver[];
+  shortPolicyReference:string;
 }

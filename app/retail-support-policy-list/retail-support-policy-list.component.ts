@@ -12,20 +12,28 @@ export class RetailSupportPolicyListComponent implements OnInit {
 
   constructor(private enquiryService: EnquiryService) { }
 
-  enquiries:Enquiry[];
-
-  private onError(){
+  enquiries: Enquiry[];
+  selectedEnquiry: Enquiry;
+  private onError() {
     console.log("There was an error");
   }
-
+  getEnquiryDetails(id: number) {
+    this.enquiryService.getEnquiry(id).subscribe(
+      n => {       
+        this.selectedEnquiry = n
+        console.log(this.selectedEnquiry);
+      },
+      e => console.log(e), () => {
+      })
+  }
   ngOnInit() {
     this.enquiryService.getEnquiries().subscribe(
-       n => console.log('onNext: %s',  this.enquiries=n), 
-       e => console.log('onErrorskjhdhjsdk: %s', e),
-      () =>{
+      n => console.log('onNext: %s', this.enquiries = n),
+      e => console.log('onErrorskjhdhjsdk: %s', e),
+      () => {
         console.log('onCompleted');
         console.log(this.enquiries)
-      });      
+      });
   }
 }
 
